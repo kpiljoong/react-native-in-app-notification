@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Animated, StyleSheet, Image } from 'react-native';
+import { Animated, StyleSheet, Image, Platform } from 'react-native';
 import { getStatusBarHeight, isIphoneX } from 'react-native-iphone-x-helper';
 
 import DefaultNotificationBody from './DefaultNotificationBody';
@@ -153,8 +153,16 @@ Notification.propTypes = {
   topOffset: PropTypes.number,
   backgroundColour: PropTypes.string,
   notificationBodyComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  iconApp: Image.propTypes.source,
 };
+
+Platform.select({
+  native: () => {
+    Notification.propTypes.iconApp = Image.propTypes.source;
+  },
+  default: () => {
+    Notification.propTypes.iconApp = null;
+  }
+})
 
 Notification.defaultProps = {
   closeInterval: 4000,
