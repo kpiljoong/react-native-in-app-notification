@@ -157,12 +157,12 @@ Notification.propTypes = {
 
 Platform.select({
   native: () => {
-    Notification.propTypes.iconApp = Image.propTypes.source;
+    Notification.propTypes.iconApp = PropTypes.node;
   },
   default: () => {
     Notification.propTypes.iconApp = null;
   }
-})
+});
 
 Notification.defaultProps = {
   closeInterval: 4000,
